@@ -2,8 +2,8 @@
 
 namespace Cotd_Logic.Repositories.CardRepositories.Interfaces
 {
-    public interface IWeatherCardRepository
-    {
+    public interface IWeatherCardRepository : IBaseRepository<WeatherCard>
+	{
         WeatherCard GetOne(int id);
         void UpdateCard(int id, string name, string description, string image, int envoyCost);
     }
