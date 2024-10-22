@@ -1,6 +1,6 @@
 ﻿using Cotd_Data.Models.Cards;
 using Cotd_Data.Repositories.CardRepositories.Interfaces;
-using Cotd_Logic.Interfaces;
+using Cotd_Logic.DataAccessors.CardAccessors.Interfaces;
 using Cotd_Logic.Models.Cards;
 
 namespace Cotd_Logic.DataAccessors.CardAccessors;
