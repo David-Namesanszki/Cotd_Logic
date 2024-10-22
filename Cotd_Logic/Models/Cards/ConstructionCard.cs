@@ -1,4 +1,5 @@
-﻿using Cotd_Data.Models.Cards;
+﻿using Cotd_Data.Models;
+using Cotd_Data.Models.Cards;
 using Cotd_Logic.Dtos.CardDtos;
 
 namespace Cotd_Logic.Models.Cards;
@@ -7,19 +8,14 @@ public class ConstructionCard : Card
 {
 	private readonly ConstructionCardData _data;
 
-	public ConstructionCard()
-	{
-		_data = new ConstructionCardData();
-	}
-	public ConstructionCard(ConstructionCardData data)
-	{
-		_data = data;
+    public ConstructionCard()
+    {
+        _data = new ConstructionCardData();
+    }
 
-		Id = _data.Id;
-		Name = _data.Name;
-		Description = _data.Description;
-		Image = _data.Image;
-		EnvoyCost = _data.EnvoyCost;
+    public ConstructionCard(ConstructionCardData cardData) : base(cardData)
+	{
+		_data = cardData;
 		Armor = _data.Armor;
 		Power = _data.Power;
 		TurnsToBuild = _data.TurnsToBuild;
@@ -44,5 +40,13 @@ public class ConstructionCard : Card
 		};
 
 		return dto;
+	}
+
+	public override string ToString()
+	{
+		return base.ToString() + "\n" +
+			$"Armor: {Armor}\n" +
+			$"Power: {Power}\n" +
+			$"TurnsToBuild: {TurnsToBuild}\n";
 	}
 }

@@ -18,15 +18,11 @@ public class UnitCard : Card
 	{
 		_data = new UnitCardData();
 	}
-	public UnitCard(UnitCardData data)
+
+	public UnitCard(UnitCardData data) : base(data)
 	{
 		_data = data;
 
-		Id = _data.Id;
-		Name = _data.Name;
-		Description = _data.Description;
-		Image = _data.Image;
-		EnvoyCost = _data.EnvoyCost;
 		TurnsToFormation = _data.TurnsToFormation;
 		Health = _data.Health;
 		Power = _data.Power;
@@ -56,5 +52,15 @@ public class UnitCard : Card
 		};
 
 		return dto;
+	}
+
+	public override string ToString()
+	{
+		return base.ToString() + "\n" +
+			$"Armor: {Armor}\n" +
+			$"Health: {Health}\n" +
+			$"Power: {Power}\n" +
+			$"TurnsToFormation: {TurnsToFormation}\n" +
+			$"Type: {Type}\n";
 	}
 }

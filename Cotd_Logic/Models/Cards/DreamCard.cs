@@ -11,15 +11,10 @@ public class DreamCard : Card
 	{
 		_data = new DreamCardData();
 	}
-	public DreamCard(DreamCardData data)
-	{
-		_data = data;
 
-		Id = _data.Id;
-		Name = _data.Name;
-		Description = _data.Description;
-		Image = _data.Image;
-		EnvoyCost = _data.EnvoyCost;
+	public DreamCard(DreamCardData cardData) : base(cardData)
+	{
+		_data = cardData;
 	}
 
 	public DreamCardDto ToDto()
@@ -33,5 +28,10 @@ public class DreamCard : Card
 		};
 
 		return dto;
+	}
+
+	public override string ToString()
+	{
+		return base.ToString();
 	}
 }

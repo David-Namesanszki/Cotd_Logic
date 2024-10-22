@@ -1,4 +1,5 @@
-﻿using Cotd_Data.Models.Cards;
+﻿using Cotd_Data.Models;
+using Cotd_Data.Models.Cards;
 using Cotd_Logic.Dtos.CardDtos;
 
 namespace Cotd_Logic.Models.Cards;
@@ -11,18 +12,13 @@ public class CommandCard : Card
     {
         _data = new CommandCardData();
     }
-    public CommandCard(CommandCardData data)
-    {
-		_data = data;
 
-		Id = _data.Id;
-		Name = _data.Name;
-		Description = _data.Description;
-		Image = _data.Image;
-		EnvoyCost = _data.EnvoyCost;
+    public CommandCard(CommandCardData cardData) : base(cardData)
+	{
+		_data = cardData;
 	}
 
-    public CommandCardDto ToDto()
+	public CommandCardDto ToDto()
 	{
 		CommandCardDto dto = new()
 		{
@@ -33,5 +29,10 @@ public class CommandCard : Card
 		};
 
 		return dto;
+	}
+
+	public override string ToString()
+	{
+		return base.ToString();
 	}
 }
