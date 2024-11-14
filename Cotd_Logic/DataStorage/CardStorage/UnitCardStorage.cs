@@ -1,6 +1,6 @@
 ﻿using Cotd_Data.Models.Cards;
 using Cotd_Data.Repositories.CardRepositories.Interfaces;
-using Cotd_Logic.DataStorage.CardStorage.Interfaces;
+using Cotd_Logic.DataStorage.Interfaces;
 
 namespace Cotd_Logic.DataStorage.CardStorage;
 
@@ -23,7 +23,7 @@ public class UnitCardStorage : IUnitCardStorage
 		int intHealth = int.Parse(health);
 		Enum.TryParse(unitType, out UnitTypes type);
 
-		_repo.UpdateCard(intId, name, description, image, intEnvoyCost, intTurnsToFormation, intHealth, intArmor, intPower, type);
+		_repo.UpdateCard(id, name, description, image, intEnvoyCost, intTurnsToFormation, intHealth, intArmor, intPower, type);
 	}
 
 	public void InsertCard(string name, string description, string image, string envoyCost, string turnsToFormation, string health, string armor, string power, string unitType)
@@ -55,6 +55,6 @@ public class UnitCardStorage : IUnitCardStorage
 	{
 		int intId = int.Parse(id);
 
-		_repo.Remove(_repo.GetOne(intId));
+		_repo.Remove(_repo.GetOne(id));
 	}
 }

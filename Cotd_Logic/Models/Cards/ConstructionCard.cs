@@ -1,45 +1,40 @@
-﻿using Cotd_Data.Models;
-using Cotd_Data.Models.Cards;
-using Cotd_Logic.Dtos.CardDtos;
+﻿using Cotd_Data.Models.Cards;
 
 namespace Cotd_Logic.Models.Cards;
 
 public class ConstructionCard : Card
 {
-	private readonly ConstructionCardData _data;
-
     public ConstructionCard()
     {
-        _data = new ConstructionCardData();
     }
 
     public ConstructionCard(ConstructionCardData cardData) : base(cardData)
 	{
-		_data = cardData;
-		Armor = _data.Armor;
-		Power = _data.Power;
-		TurnsToBuild = _data.TurnsToBuild;
+		Armor = cardData.Armor;
+		Power = cardData.Power;
+		TurnsToBuild = cardData.TurnsToBuild;
 	}
 
 	public int Armor { get; set; }
 	public int Power { get; set; }
 	public int TurnsToBuild { get; set; }
 
-
-	public ConstructionCardDto ToDto()
+	public override ConstructionCardData ToData()
 	{
-		ConstructionCardDto dto = new()
+		ConstructionCardData data = new()
 		{
+			Id = Id,
 			Name = Name,
 			Image = Image,
 			Description = Description,
-			EnvoyCost = EnvoyCost.ToString(),
-			Armor = Armor.ToString(),
-			Power = Power.ToString(),
-			TurnsToBuild = TurnsToBuild.ToString(),
+			EnvoyCost = EnvoyCost,
+			Armor = Armor,
+			Power = Power,
+			TurnsToBuild = TurnsToBuild,
+			CardType = (Cotd_Data.Models.Cards.CardTypes)CardType,
 		};
 
-		return dto;
+		return data;
 	}
 
 	public override string ToString()

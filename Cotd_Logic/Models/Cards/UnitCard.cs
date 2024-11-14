@@ -1,5 +1,4 @@
 ﻿using Cotd_Data.Models.Cards;
-using Cotd_Logic.Dtos.CardDtos;
 
 namespace Cotd_Logic.Models.Cards;
 
@@ -12,21 +11,16 @@ public enum UnitTypes
 
 public class UnitCard : Card
 {
-	private readonly UnitCardData _data;
-
 	public UnitCard()
 	{
-		_data = new UnitCardData();
 	}
 
 	public UnitCard(UnitCardData data) : base(data)
 	{
-		_data = data;
-
-		TurnsToFormation = _data.TurnsToFormation;
-		Health = _data.Health;
-		Power = _data.Power;
-		Armor = _data.Armor;
+		TurnsToFormation = data.TurnsToFormation;
+		Health = data.Health;
+		Power = data.Power;
+		Armor = data.Armor;
 		Type = UnitTypes.Melee;
 	}
 
@@ -36,22 +30,24 @@ public class UnitCard : Card
     public int Armor { get; set; }
     public UnitTypes Type { get; set; }
 
-    public UnitCardDto ToDto()
+    public override UnitCardData ToData()
     {
-		UnitCardDto dto = new()
+		UnitCardData data = new()
 		{
+			Id = Id,
 			Name = Name,
 			Image = Image,
 			Description = Description,
-			EnvoyCost = EnvoyCost.ToString(),
-			Health = Health.ToString(),
-			Armor = Armor.ToString(),
-			Power = Power.ToString(),
-			TurnToFormation = TurnsToFormation.ToString(),
-			UnitTypeImage = Type.ToString()
+			EnvoyCost = EnvoyCost,
+			Health = Health,
+			Armor = Armor,
+			Power = Power,
+			TurnsToFormation = TurnsToFormation,
+			Type = (Cotd_Data.Models.Cards.UnitTypes)Type,
+			CardType = (Cotd_Data.Models.Cards.CardTypes)CardType,
 		};
 
-		return dto;
+		return data;
 	}
 
 	public override string ToString()

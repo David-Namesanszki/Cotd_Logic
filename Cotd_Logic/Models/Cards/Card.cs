@@ -1,31 +1,42 @@
-﻿using Cotd_Data.Models;
-using Cotd_Logic.Dtos.CardDtos;
+﻿using Cotd_Data.Models.Cards;
 
 namespace Cotd_Logic.Models.Cards;
 
+public enum CardTypes
+{
+	CommandCard,
+	ConstructionCard,
+	DreamCard,
+	FireCard,
+	UnitCard,
+	WeatherCard,
+	Undefined,
+}
+
 public abstract class Card
 {
+	protected Card()
+	{
+	}
+
 	protected Card(CardData cardData)
 	{
 		Id = cardData.Id;
 		Name = cardData.Name;
 		Description = cardData.Description;
 		Image = cardData.Image;
+		CardType = (CardTypes)cardData.CardType;
 		EnvoyCost = cardData.EnvoyCost;
-		IsUnlocked = cardData.IsUnlocked;
 	}
 
-	protected Card()
-	{
+	public string Id { get; set; } = Guid.NewGuid().ToString();
+    public CardTypes CardType { get; set; } = CardTypes.Undefined;
+	public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+	public string Image { get; set; } = string.Empty;
+	public int EnvoyCost { get; set; } = 0;
 
-	}
-
-	public int Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public string Image { get; set; }
-    public int EnvoyCost { get; set; }
-    public bool IsUnlocked { get; set; }
+	public abstract CardData ToData();
 
 	public override string ToString()
 	{
@@ -33,7 +44,6 @@ public abstract class Card
 			   $"Id: {Id}\n" +
 			   $"Description: {Description}\n" +
 			   $"Image: {Image}\n" +
-			   $"EnvoyCost: {EnvoyCost}\n" +
-			   $"IsUnlocked: {IsUnlocked}";
+			   $"EnvoyCost: {EnvoyCost}\n";
 	}
 }

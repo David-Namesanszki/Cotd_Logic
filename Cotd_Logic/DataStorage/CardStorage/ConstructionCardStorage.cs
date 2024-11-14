@@ -1,6 +1,6 @@
 ﻿using Cotd_Data.Models.Cards;
 using Cotd_Data.Repositories.CardRepositories.Interfaces;
-using Cotd_Logic.DataStorage.CardStorage.Interfaces;
+using Cotd_Logic.DataStorage.Interfaces;
 
 namespace Cotd_Logic.DataStorage.CardStorage;
 
@@ -21,7 +21,7 @@ public class ConstructionCardStorage : IConstructionCardStorage
 		int intArmor = int.Parse(armor);
 		int intPower = int.Parse(power);
 
-		_repo.UpdateCard(intId, name, description, image, intEnvoyCost, intTurnsToBuild, intArmor, intPower);
+		_repo.UpdateCard(id, name, description, image, intEnvoyCost, intTurnsToBuild, intArmor, intPower);
 	}
 
 	public void InsertCard(string name, string description, string image, string envoyCost, string turnsToBuild, string armor, string power)
@@ -49,6 +49,6 @@ public class ConstructionCardStorage : IConstructionCardStorage
 	{
 		int intId = int.Parse(id);
 
-		_repo.Remove(_repo.GetOne(intId));
+		_repo.Remove(_repo.GetOne(id));
 	}
 }

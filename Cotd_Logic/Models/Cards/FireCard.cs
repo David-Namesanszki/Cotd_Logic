@@ -1,38 +1,34 @@
-﻿using Cotd_Data.Models;
-using Cotd_Data.Models.Cards;
-using Cotd_Logic.Dtos.CardDtos;
+﻿using Cotd_Data.Models.Cards;
 
 namespace Cotd_Logic.Models.Cards;
 
 public class FireCard : Card
 {
-	private readonly FireCardData _data;
-
     public FireCard()
     {
-        _data = new FireCardData();
     }
 
     public FireCard(FireCardData cardData) : base(cardData)
 	{
-		_data = cardData;
-		FireCost = _data.FireCost;
+		FireCost = cardData.FireCost;
 	}
 
 	public int FireCost { get; set; }
 
-	public FireCardDto ToDto()
+	public override FireCardData ToData()
 	{
-		FireCardDto dto = new()
+		FireCardData data = new()
 		{
+			Id = Id,
 			Name = Name,
 			Image = Image,
 			Description = Description,
-			EnvoyCost = EnvoyCost.ToString(),
-			FireCost = FireCost.ToString()
+			EnvoyCost = EnvoyCost,
+			FireCost = FireCost,
+			CardType = (Cotd_Data.Models.Cards.CardTypes)CardType,
 		};
 
-		return dto;
+		return data;
 	}
 
 	public override string ToString()

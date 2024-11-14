@@ -1,34 +1,26 @@
-﻿using Cotd_Data.Models;
-using Cotd_Data.Models.Cards;
-using Cotd_Logic.Dtos.CardDtos;
+﻿using Cotd_Data.Models.Cards;
 
 namespace Cotd_Logic.Models.Cards;
 
 public class CommandCard : Card
 {
-	private readonly CommandCardData _data;
-
-    public CommandCard()
-    {
-        _data = new CommandCardData();
-    }
-
     public CommandCard(CommandCardData cardData) : base(cardData)
 	{
-		_data = cardData;
 	}
 
-	public CommandCardDto ToDto()
+	public override CommandCardData ToData()
 	{
-		CommandCardDto dto = new()
+		CommandCardData data = new()
 		{
+			Id = Id,
 			Name = Name,
 			Image = Image,
 			Description = Description,
-			EnvoyCost = EnvoyCost.ToString()
+			EnvoyCost = EnvoyCost,
+			CardType = (Cotd_Data.Models.Cards.CardTypes)CardType
 		};
 
-		return dto;
+		return data;
 	}
 
 	public override string ToString()

@@ -1,6 +1,6 @@
 ﻿using Cotd_Data.Models.Cards;
 using Cotd_Data.Repositories.CardRepositories.Interfaces;
-using Cotd_Logic.DataStorage.CardStorage.Interfaces;
+using Cotd_Logic.DataStorage.Interfaces;
 
 namespace Cotd_Logic.DataStorage.CardStorage;
 
@@ -18,7 +18,7 @@ public class WeatherCardStorage : IWeatherCardStorage
 		int intId = int.Parse(id);
 		int intEnvoyCost = int.Parse(envoyCost);
 
-		_repo.UpdateCard(intId, name, description, image, intEnvoyCost);
+		_repo.UpdateCard(id, name, description, image, intEnvoyCost);
 	}
 
 	public void InsertCard(string name, string description, string image, string envoyCost)
@@ -40,6 +40,6 @@ public class WeatherCardStorage : IWeatherCardStorage
 	{
 		int intId = int.Parse(id);
 
-		_repo.Remove(_repo.GetOne(intId));
+		_repo.Remove(_repo.GetOne(id));
 	}
 }

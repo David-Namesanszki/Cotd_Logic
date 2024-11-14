@@ -1,33 +1,30 @@
 ﻿using Cotd_Data.Models.Cards;
-using Cotd_Logic.Dtos.CardDtos;
 
 namespace Cotd_Logic.Models.Cards;
 
 public class DreamCard : Card
 {
-	private readonly DreamCardData _data;
-
 	public DreamCard()
 	{
-		_data = new DreamCardData();
 	}
 
 	public DreamCard(DreamCardData cardData) : base(cardData)
 	{
-		_data = cardData;
 	}
 
-	public DreamCardDto ToDto()
+	public override DreamCardData ToData()
 	{
-		DreamCardDto dto = new()
+		DreamCardData data = new()
 		{
+			Id = Id,
 			Name = Name,
 			Image = Image,
 			Description = Description,
-			EnvoyCost = EnvoyCost.ToString()
+			EnvoyCost = EnvoyCost,
+			CardType = (Cotd_Data.Models.Cards.CardTypes)CardType,
 		};
 
-		return dto;
+		return data;
 	}
 
 	public override string ToString()
