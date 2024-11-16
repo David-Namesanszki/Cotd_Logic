@@ -18,10 +18,6 @@ public class HarvestingSite : Location
 	public int DaysToHarvest { get; set; } = 0;
     public Resource Loot { get; set; } = new Resource();
 
-    public override string ToString()
-    {
-        return $"{base.ToString()}, DaysToHarvest = {DaysToHarvest}, Loot = {Loot}";
-    }
     public override bool Equals(object? obj)
     {
         if (obj is HarvestingSite other)

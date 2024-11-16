@@ -1,5 +1,4 @@
 ﻿using Cotd_Data.Models.Games.Raids.Maps.Locations;
-using Cotd_Logic.Models.Games.Decks;
 
 namespace Cotd_Logic.Models.Games.Raids.Maps.Locations;
 
@@ -7,12 +6,20 @@ public class Altar : Location
 {
     public Altar()
     {
-        
     }
+
+    public Altar(IList<string> cardChoises)
+    {
+        CardChoises = new List<string>(cardChoises);
+    }
+
+
     public Altar(AltarData locationData) : base(locationData)
 	{
-		CardChoises = new Deck(locationData.CardChoices);
+		CardChoises = locationData.CardChoiceIds;
 	}
 
-	public Deck CardChoises { get; set; } = new Deck();
+	public IList<string> CardChoises { get; set; } = [];
+
+	
 }

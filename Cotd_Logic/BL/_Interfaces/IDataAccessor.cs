@@ -1,4 +1,4 @@
-﻿namespace Cotd_Logic.DataAccessors.Interfaces
+﻿namespace Cotd_Logic.BL._Interfaces
 {
     public interface IDataAccessor<T>
     {

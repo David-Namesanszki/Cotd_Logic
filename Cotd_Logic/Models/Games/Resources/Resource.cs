@@ -71,6 +71,12 @@ public class Resource
 			BloodSapAmount = r1.BloodSapAmount - r2.BloodSapAmount
 		});
 	}
+
+	public static Resource Zero()
+	{
+		return new Resource();
+	}
+
 	public override bool Equals(object? obj)
 	{
 		if (obj is Resource other)

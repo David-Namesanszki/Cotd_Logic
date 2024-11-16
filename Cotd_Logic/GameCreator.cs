@@ -13,7 +13,7 @@ public class GameCreator
 		Resource resource = new Resource();
 		Raid raid = new Raid();
 		List<Card> unlockedCards = new List<Card>();
-		Game game = new Game(name);
+		Game game = new Game();
 	}
 
 	public void LoadGame(string id)

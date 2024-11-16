@@ -1,8 +1,5 @@
-﻿using Cotd_Data.Models.Cards;
-using Cotd_Data.Models.Games.Raids;
-using Cotd_Data.Models.Games.Raids.Maps;
+﻿using Cotd_Data.Models.Games.Raids.Maps;
 using Cotd_Data.Models.Games.Raids.Maps.Locations;
-using Cotd_Logic.Models.Cards;
 using Cotd_Logic.Models.Games.Raids.Maps.LocationPaths;
 using Cotd_Logic.Models.Games.Raids.Maps.Locations;
 
@@ -36,6 +33,13 @@ public class Map
 
     public List<LocationPath> LocationPaths { get; set; } = [];
     public List<Location> Locations { get; set; } = [];
+    public Location StartLocation
+    {
+        get
+        {
+			return Locations.FirstOrDefault(l => l is StartLocation);
+		}
+	}
 
     public void AddLocationPath(LocationPath locationPath)
     {

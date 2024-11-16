@@ -1,4 +1,5 @@
 ﻿using Cotd_Data.Models.Games.Raids.Maps.Locations;
+using Cotd_Logic.Models.Cards;
 using Cotd_Logic.Models.Enemies;
 using Cotd_Logic.Models.Games.Resources;
 
@@ -15,13 +16,11 @@ public class Battle : Location
         Loot = new Resource(locationData.Loot);
 	}
 
-	public Enemy Enemy { get; set; } = new Enemy();
+    public IList<Card> Hand { get; set; } = [];
+    public IList<Card> Deck { get; set; } = [];
+    public IList<Card> DiscardPile { get; set; } = [];
+    public Enemy Enemy { get; set; } = new Enemy();
     public Resource Loot { get; set; } = new Resource();
-
-    public override string ToString()
-    {
-        return $"{base.ToString()}, Enemy = {Enemy}, Loot = {Loot}";
-    }
 
     public override bool Equals(object? obj)
     {

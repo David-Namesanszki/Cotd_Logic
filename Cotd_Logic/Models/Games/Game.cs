@@ -1,4 +1,5 @@
 ﻿using Cotd_Data.Models.GameInfos;
+using Cotd_Logic.Configs;
 using Cotd_Logic.Models.Captains;
 using Cotd_Logic.Models.Cards;
 using Cotd_Logic.Models.Games.Raids;
@@ -25,16 +26,20 @@ public class Game
 		OngoingRaid = gameData.OngoingRaid != null ? new Raid(gameData.OngoingRaid) : null;
 	}
 
-	public Game(string name)
+	public Game(string name, IList<Card> unlockedCards, IList<Captain> unlockedCaptains)
 	{
 		Name = name;
+		Resources = GameConfig.StartingResources;
+		UnlockedCards = unlockedCards;
+		UnlockedCaptains = unlockedCaptains;
+		OngoingRaid = null;
 	}
 
 	public string Id { get; set; } = Guid.NewGuid().ToString();
 	public string Name { get; set; } = string.Empty;
 	public Resource Resources { get; set; } = new Resource();
-	public ICollection<Card> UnlockedCards { get; } = [];
-	public ICollection<Captain> UnlockedCaptains { get; } = [];
+	public IList<Card> UnlockedCards { get; } = [];
+	public IList<Captain> UnlockedCaptains { get; } = [];
 	public Raid? OngoingRaid { get; set; } = null;
 
 	public GameData ToData()

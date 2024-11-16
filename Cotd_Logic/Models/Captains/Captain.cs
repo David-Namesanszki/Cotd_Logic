@@ -1,5 +1,4 @@
 ﻿using Cotd_Data.Models.Captains;
-using Cotd_Logic.Models.Games.Decks;
 
 namespace Cotd_Logic.Models.Captains;
 
@@ -16,7 +15,7 @@ public class Captain
 		Health = data.Health;
 		Power = data.Power;
 		Armor = data.Armor;
-		Deck = new Deck(data.Deck);
+		CardIds = data.CardIds;
     }
 
 	public CaptainData ToData()
@@ -29,7 +28,7 @@ public class Captain
 			Health = Health,
 			Power = Power,
 			Armor = Armor,
-			Deck = Deck.ToData(),
+			CardIds = CardIds,
 		};
 
 		return data;
@@ -41,5 +40,5 @@ public class Captain
 	public int Health { get; set; } = 0;
 	public int Power { get; set; } = 0;
 	public int Armor { get; set; } = 0;
-	public Deck Deck { get; set; } = new Deck();
+	public IList<string> CardIds { get; set; } = [];
 }

@@ -1,5 +1,4 @@
 ﻿using Cotd_Data.Models.Enemies;
-using Cotd_Logic.Models.Games.Decks;
 
 namespace Cotd_Logic.Models.Enemies;
 
@@ -8,10 +7,16 @@ public class Enemy
 	public Enemy()
 	{
 	}
-	public Enemy(EnemyData enemyData)
+    public Enemy(IList<string> cardIds, string image)
+    {
+        CardIds = new List<string>(cardIds);
+		Image = image;
+    }
+
+    public Enemy(EnemyData enemyData)
 	{
 		Id = enemyData.Id;
-		Deck = new Deck(enemyData.Deck);
+		CardIds = CardIds;
 		Image = enemyData.Image;
 	}
 	public EnemyData ToData()
@@ -19,12 +24,12 @@ public class Enemy
 		return new EnemyData
 		{
 			Id = Id,
-			Deck = Deck.ToData(),
+			CardIds = CardIds,
 			Image = Image,
 		};
 	}
 	public string Id { get; set; } = Guid.NewGuid().ToString();
-    public Deck Deck { get; set; } = new Deck();
+    public IList<string> CardIds { get; set; } = [];
 	public string Image { get; set; } = string.Empty;
 
 	
