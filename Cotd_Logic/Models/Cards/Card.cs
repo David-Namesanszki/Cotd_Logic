@@ -1,4 +1,6 @@
 ﻿using Cotd_Data.Models.Cards;
+using Cotd_Logic.Models.Common;
+using Cotd_Logic.Models.Effects;
 
 namespace Cotd_Logic.Models.Cards;
 
@@ -13,7 +15,7 @@ public enum CardTypes
 	Undefined,
 }
 
-public abstract class Card
+public abstract class Card : Entity
 {
 	protected Card()
 	{
@@ -27,23 +29,28 @@ public abstract class Card
 		Image = cardData.Image;
 		CardType = (CardTypes)cardData.CardType;
 		EnvoyCost = cardData.EnvoyCost;
+		Effects = cardData.Effects.Select(x => new Effect(x)).ToList();
 	}
 
-	public string Id { get; set; } = Guid.NewGuid().ToString();
+	protected Card(string name, string description, string image, int envoyCost)
+	{
+		Name = name;
+		Description = description;
+		Image = image;
+		EnvoyCost = envoyCost;
+	}
+
     public CardTypes CardType { get; set; } = CardTypes.Undefined;
 	public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
 	public string Image { get; set; } = string.Empty;
 	public int EnvoyCost { get; set; } = 0;
+	public IList<Effect> Effects { get; set; } = [];
 
-	public abstract CardData ToData();
+    public abstract CardData ToData();
 
-	public override string ToString()
+	public void AddEffect(Effect effect)
 	{
-		return $"Card: {Name}\n" +
-			   $"Id: {Id}\n" +
-			   $"Description: {Description}\n" +
-			   $"Image: {Image}\n" +
-			   $"EnvoyCost: {EnvoyCost}\n";
+		Effects.Add(effect);
 	}
 }

@@ -1,8 +1,9 @@
 ﻿using Cotd_Data.Models.Enemies;
+using Cotd_Logic.Models.Common;
 
 namespace Cotd_Logic.Models.Enemies;
 
-public class Enemy
+public class Enemy : Entity
 {
 	public Enemy()
 	{
@@ -28,7 +29,6 @@ public class Enemy
 			Image = Image,
 		};
 	}
-	public string Id { get; set; } = Guid.NewGuid().ToString();
     public IList<string> CardIds { get; set; } = [];
 	public string Image { get; set; } = string.Empty;
 

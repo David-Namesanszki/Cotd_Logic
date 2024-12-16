@@ -32,6 +32,7 @@ public class ConstructionCard : Card
 			Power = Power,
 			TurnsToBuild = TurnsToBuild,
 			CardType = (Cotd_Data.Models.Cards.CardTypes)CardType,
+			Effects = Effects.Select(x => x.ToData()).ToList()
 		};
 
 		return data;

@@ -1,6 +1,6 @@
 ﻿using Cotd_Data._Interfaces;
 using Cotd_Data.Models.Enemies;
-using Cotd_Logic.BL._Interfaces;
+using Cotd_Logic._Interfaces;
 using Cotd_Logic.Models.Enemies;
 
 namespace Cotd_Logic.BL.DataAccessors;

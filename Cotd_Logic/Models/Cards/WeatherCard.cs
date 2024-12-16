@@ -22,6 +22,7 @@ public class WeatherCard : Card
 			Description = Description,
 			EnvoyCost = EnvoyCost,
 			CardType = (Cotd_Data.Models.Cards.CardTypes)CardType,
+			Effects = Effects.Select(x => x.ToData()).ToList()
 		};
 
 		return data;

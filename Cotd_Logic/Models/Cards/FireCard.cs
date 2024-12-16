@@ -26,6 +26,7 @@ public class FireCard : Card
 			EnvoyCost = EnvoyCost,
 			FireCost = FireCost,
 			CardType = (Cotd_Data.Models.Cards.CardTypes)CardType,
+			Effects = Effects.Select(x => x.ToData()).ToList()
 		};
 
 		return data;

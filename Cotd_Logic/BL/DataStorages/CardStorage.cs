@@ -1,6 +1,6 @@
 ﻿using Cotd_Data._Interfaces;
 using Cotd_Data.Models.Cards;
-using Cotd_Logic.BL._Interfaces;
+using Cotd_Logic._Interfaces;
 using Cotd_Logic.Models.Cards;
 
 namespace Cotd_Logic.BL.DataStorages;

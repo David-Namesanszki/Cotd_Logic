@@ -1,6 +1,6 @@
 ﻿using Cotd_Data.Models.Captains;
 using Cotd_Data.Repositories;
-using Cotd_Logic.BL._Interfaces;
+using Cotd_Logic._Interfaces;
 using Cotd_Logic.Models.Captains;
 
 namespace Cotd_Logic.BL.DataAccessors;

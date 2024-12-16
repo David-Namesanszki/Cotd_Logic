@@ -11,8 +11,20 @@ public enum UnitTypes
 
 public class UnitCard : Card
 {
+	public UnitCard(string name, string description, string image, int envoyCost, int turnsToFormation, int health, int power, int armor, UnitTypes unitType)
+		: base(name, description, image, envoyCost)
+	{
+		TurnsToFormation = turnsToFormation;
+		Health = health;
+		Power = power;
+		Armor = armor;
+		UnitType = unitType;
+		CardType = CardTypes.UnitCard;
+	}
+
 	public UnitCard()
 	{
+		CardType = CardTypes.UnitCard;
 	}
 
 	public UnitCard(UnitCardData data) : base(data)
@@ -21,14 +33,15 @@ public class UnitCard : Card
 		Health = data.Health;
 		Power = data.Power;
 		Armor = data.Armor;
-		Type = UnitTypes.Melee;
+		UnitType = (UnitTypes)data.UnitType;
+		CardType = CardTypes.UnitCard;
 	}
 
 	public int TurnsToFormation { get; set; }
     public int Health { get; set; }
     public int Power { get; set; }
     public int Armor { get; set; }
-    public UnitTypes Type { get; set; }
+    public UnitTypes UnitType { get; set; }
 
     public override UnitCardData ToData()
     {
@@ -43,8 +56,9 @@ public class UnitCard : Card
 			Armor = Armor,
 			Power = Power,
 			TurnsToFormation = TurnsToFormation,
-			Type = (Cotd_Data.Models.Cards.UnitTypes)Type,
-			CardType = (Cotd_Data.Models.Cards.CardTypes)CardType,
+			UnitType = (Cotd_Data.Models.Cards.UnitTypes)UnitType,
+			CardType = Cotd_Data.Models.Cards.CardTypes.UnitCard,
+			Effects = Effects.Select(x => x.ToData()).ToList()
 		};
 
 		return data;
@@ -57,6 +71,6 @@ public class UnitCard : Card
 			$"Health: {Health}\n" +
 			$"Power: {Power}\n" +
 			$"TurnsToFormation: {TurnsToFormation}\n" +
-			$"Type: {Type}\n";
+			$"Type: {UnitType}\n";
 	}
 }

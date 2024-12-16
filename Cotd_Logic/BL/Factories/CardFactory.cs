@@ -1,10 +1,10 @@
 ﻿using Cotd_Logic.Models.Cards;
 using Cotd_Logic.Models.GameInfos;
-using Cotd_Logic.BL._Interfaces;
 using Cotd_Logic.BL.DataAccessors;
 using Cotd_Data.Models.Cards;
 using Cotd_Data.Repositories;
 using Cotd_Data._Interfaces;
+using Cotd_Logic._Interfaces;
 
 namespace Cotd_Logic.BL.Factories;
 

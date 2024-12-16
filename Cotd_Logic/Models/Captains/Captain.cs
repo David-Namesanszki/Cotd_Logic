@@ -1,8 +1,9 @@
 ﻿using Cotd_Data.Models.Captains;
+using Cotd_Logic.Models.Common;
 
 namespace Cotd_Logic.Models.Captains;
 
-public class Captain
+public class Captain : Entity
 {
     public Captain()
     {
@@ -17,6 +18,16 @@ public class Captain
 		Armor = data.Armor;
 		CardIds = data.CardIds;
     }
+
+	public Captain(string image, string name, int health, int power, int armor, IList<string> cardIds)
+	{
+		Image = image;
+		Name = name;
+		Health = health;
+		Power = power;
+		Armor = armor;
+		CardIds = cardIds;
+	}
 
 	public CaptainData ToData()
 	{
@@ -34,11 +45,11 @@ public class Captain
 		return data;
 	}
 
-	public string Id { get; set; } = Guid.NewGuid().ToString();
     public string Image { get; set; } = string.Empty;
 	public string Name { get; set; } = string.Empty;
 	public int Health { get; set; } = 0;
 	public int Power { get; set; } = 0;
 	public int Armor { get; set; } = 0;
 	public IList<string> CardIds { get; set; } = [];
+	public bool IsDead => Health <= 0;
 }

@@ -1,10 +1,10 @@
 ﻿using Cotd_Data._Interfaces;
-using Cotd_Logic.BL._Interfaces;
-using Cotd_Logic.Models.GameInfos;
+using Cotd_Logic._Interfaces;
+using Cotd_Logic.Models;
 
 namespace Cotd_Logic.BL.DataStorages;
 
-public class GameStorage : IDataStorage<Game>
+public class GameStorage : IDataStorage<RiftBase>
 {
     private readonly IGameRepository _repo;
 
@@ -13,17 +13,17 @@ public class GameStorage : IDataStorage<Game>
         _repo = repo;
     }
 
-    public void Delete(Game entity)
+    public void Delete(RiftBase entity)
     {
         _repo.Remove(entity.ToData());
     }
 
-    public void Save(Game entity)
+    public void Save(RiftBase entity)
     {
         _repo.Insert(entity.ToData());
     }
 
-    public void Update(Game entity)
+    public void Update(RiftBase entity)
     {
         _repo.Update(entity.ToData());
     }

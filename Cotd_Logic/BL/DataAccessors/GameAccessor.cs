@@ -1,11 +1,11 @@
 ﻿using Cotd_Data._Interfaces;
 using Cotd_Data.Models.GameInfos;
-using Cotd_Logic.BL._Interfaces;
-using Cotd_Logic.Models.GameInfos;
+using Cotd_Logic._Interfaces;
+using Cotd_Logic.Models;
 
 namespace Cotd_Logic.BL.DataAccessors;
 
-public class GameAccessor : IDataAccessor<Game>
+public class GameAccessor : IDataAccessor<RiftBase>
 {
     private readonly IGameRepository _repo;
 
@@ -14,17 +14,17 @@ public class GameAccessor : IDataAccessor<Game>
         _repo = repo;
     }
 
-    public Game GetOne(string id)
+    public RiftBase GetOne(string id)
     {
         GameData data = _repo.GetOne(id);
 
-        return new Game();
+        return new RiftBase();
     }
 
-    public List<Game> GetAll()
+    public List<RiftBase> GetAll()
     {
         return _repo.GetAll()
-                    .Select(data => new Game())
+                    .Select(data => new RiftBase())
                     .ToList();
     }
 }

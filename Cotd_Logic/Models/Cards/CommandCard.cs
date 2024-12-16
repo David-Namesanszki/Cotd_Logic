@@ -1,11 +1,23 @@
 ﻿using Cotd_Data.Models.Cards;
+using Cotd_Logic.Models.Cards.Effects;
 
 namespace Cotd_Logic.Models.Cards;
 
 public class CommandCard : Card
 {
+    public CommandCard()
+    {
+    }
+
+    public CommandCard(string name, string description, string image, int envoyCost)
+		: base(name, description, image, envoyCost)
+    {
+		CardType = CardTypes.CommandCard;
+	}
+
     public CommandCard(CommandCardData cardData) : base(cardData)
 	{
+		CardType = CardTypes.CommandCard;
 	}
 
 	public override CommandCardData ToData()
@@ -17,7 +29,8 @@ public class CommandCard : Card
 			Image = Image,
 			Description = Description,
 			EnvoyCost = EnvoyCost,
-			CardType = (Cotd_Data.Models.Cards.CardTypes)CardType
+			CardType = Cotd_Data.Models.Cards.CardTypes.CommandCard,
+			Effects = Effects.Select(x => x.ToData()).ToList()
 		};
 
 		return data;
