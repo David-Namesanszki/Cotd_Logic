@@ -1,5 +1,4 @@
 ﻿using Cotd_Data.Models.Cards;
-using Cotd_Logic.Models.Cards.Effects;
 
 namespace Cotd_Logic.Models.Cards;
 

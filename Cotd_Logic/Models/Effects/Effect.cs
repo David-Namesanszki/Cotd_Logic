@@ -1,4 +1,5 @@
 ﻿using Cotd_Data.Models.Cards.Effects;
+using Cotd_Logic.BL.GameLogic.Behaviours;
 
 namespace Cotd_Logic.Models.Effects;
 
@@ -30,8 +31,9 @@ public class Effect
 
     public int? Parameter { get; set; } = null;
     public EffectTypes EffectType { get; set; } = EffectTypes.Undefined;
+    public Type? TargetType => GetTargetType(EffectType);
 
-    public EffectData ToData()
+	public EffectData ToData()
     {
         return new EffectData()
         {
@@ -39,4 +41,17 @@ public class Effect
             Parameter = Parameter,
         };
     }
+
+	private Type? GetTargetType(EffectTypes effectType)
+	{
+		return effectType switch
+		{
+			EffectTypes.DrawCard => null,
+			EffectTypes.DealDamage => typeof(IAttacker),
+			EffectTypes.ArmorUp => typeof(IDefender),
+			EffectTypes.Heal => typeof(IHealable),
+			EffectTypes.Undefined => null,
+			_ => throw new ArgumentOutOfRangeException(nameof(effectType), "Unhandled effect type")
+		};
+	}
 }

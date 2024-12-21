@@ -1,5 +1,4 @@
 ﻿using Cotd_Logic.Models.Cards;
-using Cotd_Logic.Models.GameInfos;
 using Cotd_Logic.BL.DataAccessors;
 using Cotd_Data.Models.Cards;
 using Cotd_Data.Repositories;

@@ -1,26 +1,17 @@
-﻿using Cotd_Logic._Interfaces;
+﻿namespace Cotd_Logic.BL.GameLogic.RiftBaseLogics.UnlockingSystem;
 
-namespace Cotd_Logic.BL.GameLogic.RiftBaseLogics.UnlockingSystem;
-
-public class LevelPurchaser : IPurchaser<int>
+public class LevelPurchaser
 {
-    private int _playerLevel;
-
-    public LevelPurchaser(int playerLevel)
+    public bool IsPurchasable(int playerLevel, int cost)
     {
-        _playerLevel = playerLevel;
+        return cost < playerLevel;
     }
 
-    public bool IsPurchasable(int cost)
+    public void Purchase(ref int playerLevel, int cost)
     {
-        return cost < _playerLevel;
-    }
-
-    public void Purchase(int cost)
-    {
-        if (IsPurchasable(cost))
+        if (IsPurchasable(playerLevel, cost))
         {
-            _playerLevel -= cost;
+			playerLevel -= cost;
         }
     }
 }

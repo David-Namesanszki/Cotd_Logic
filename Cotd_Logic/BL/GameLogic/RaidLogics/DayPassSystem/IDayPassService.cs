@@ -5,7 +5,7 @@
 		int RemainingDays { get; }
 		int TotalDays { get; }
 
-		bool OutOfDays();
+		bool OutOfDays { get; }
 		void PassDays(int amount);
 	}
 }

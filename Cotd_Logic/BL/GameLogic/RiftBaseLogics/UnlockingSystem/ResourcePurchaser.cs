@@ -1,27 +1,19 @@
 ﻿using Cotd_Data.ValueObjects;
-using Cotd_Logic._Interfaces;
 
 namespace Cotd_Logic.BL.GameLogic.RiftBaseLogics.UnlockingSystem;
 
-public class ResourcePurchaser : IPurchaser<Loot>
+public class ResourcePurchaser
 {
-    private Loot _playerResources;
-
-    public ResourcePurchaser(Loot playerResources)
+    public bool IsPurchasable(Loot playerLoot, Loot cost)
     {
-        _playerResources = playerResources;
+        return cost < playerLoot;
     }
 
-    public bool IsPurchasable(Loot cost)
+    public void Purchase(ref Loot playerLoot, Loot cost)
     {
-        return cost < _playerResources;
-    }
-
-    public void Purchase(Loot cost)
-    {
-        if (IsPurchasable(cost))
+        if (IsPurchasable(playerLoot, cost))
         {
-            _playerResources -= cost;
+			playerLoot -= cost;
         }
     }
 }

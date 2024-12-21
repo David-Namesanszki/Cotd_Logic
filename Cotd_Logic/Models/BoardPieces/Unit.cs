@@ -1,4 +1,6 @@
-﻿using Cotd_Logic.BL.Behaviours;
+﻿using Cotd_Logic.BL.GameLogic.Behaviours;
+using Cotd_Logic.Models.BoardTiles;
+using Cotd_Logic.Models.Buffs;
 using Cotd_Logic.Models.Cards;
 
 namespace Cotd_Logic.Models.BoardPieces;
@@ -9,41 +11,16 @@ public enum UnitTypes
     Ranged,
     Support
 }
-public class Unit : BoardPiece
+public class Unit : BoardPiece, IAttacker
 {
-    private UnitCard _card;
+	public Unit(string name, string image, IList<Buff> buffs, BoardTile boardTile) : base(name, image, buffs, boardTile)
+	{
+	}
 
-    public Unit(UnitCard card)
-    {
-        _card = card;
-        Name = card.Name;
-        Health = card.Health;
-        Power = card.Power;
-        Armor = card.Armor;
-        TurnsToFormation = card.TurnsToFormation;
-        Image = card.Image;
-    }
-
-    public Unit(string name, string image, int health, int power, int armor, int turnsToFormation)
-    {
-        _card = new UnitCard();
-        Name = name;
-        Image = image;
-        Health = health;
-        Power = power;
-        Armor = armor;
-        TurnsToFormation = turnsToFormation;
-    }
-
-    public string Name { get; set; }
-    public string Image { get; set; } = string.Empty;
-    public int Health { get; set; }
-    public int Power { get; set; }
-    public int Armor { get; set; }
-    public UnitTypes UnitType { get; set; }
-    public int TurnsToFormation { get; set; }
-    public bool IsInFormation => TurnsToFormation <= 0;
+    public bool IsInFormation => Stats.TurnsToFormation <= 0;
     public bool HasAttacked { get; set; } = false;
+    public UnitStats Stats { get; set; }
+
     public event Action? DestroyArmor;
     public event Action? Attack;
 
@@ -51,7 +28,7 @@ public class Unit : BoardPiece
     {
         if (!IsInFormation)
         {
-            TurnsToFormation -= 1;
+			Stats.TurnsToFormation -= 1;
         }
 
         HasAttacked = false;
@@ -61,49 +38,49 @@ public class Unit : BoardPiece
     {
         if (bypassArmor)
         {
-            Health = Math.Max(0, Health - damage);
+			Stats.Health = Math.Max(0, Stats.Health - damage);
         }
         else
         {
             // Reduce armor first
-            int reducedArmor = Math.Max(0, Armor - damage);
+            int reducedArmor = Math.Max(0, Stats.Armor - damage);
 
             // Calculate remaining damage after armor
-            int effectiveDamage = Math.Max(0, damage - Armor);
+            int effectiveDamage = Math.Max(0, damage - Stats.Armor);
 
-            // Apply remaining damage to health
-            Health = Math.Max(0, Health - effectiveDamage);
+			// Apply remaining damage to health
+			Stats.Health = Math.Max(0, Stats.Health - effectiveDamage);
 
-            // Update the current armor value
-            Armor = reducedArmor;
+			// Update the current armor value
+			Stats.Armor = reducedArmor;
         }
 
-        if (Armor <= 0)
+        if (Stats.Armor <= 0)
         {
             DestroyArmor?.Invoke();
         }
 
-        if (Health <= 0)
+        if (Stats.Health <= 0)
         {
             OnDestroyed();
         }
     }
 
-    public UnitCard ToCard()
-    {
-        return new UnitCard()
-        {
-            Image = Image,
-            Power = Power,
-            Health = Health,
-            Armor = Armor,
-            TurnsToFormation = _card.TurnsToFormation,
-            Description = _card.Description,
-            Effects = _card.Effects,
-            EnvoyCost = _card.EnvoyCost,
-            Id = _card.Id,
-            CardType = _card.CardType,
-            Name = _card.Name,
-        };
-    }
+    //public UnitCard ToCard()
+    //{
+    //    return new UnitCard()
+    //    {
+    //        Image = Image,
+    //        Power = Power,
+    //        Health = Health,
+    //        Armor = Armor,
+    //        TurnsToFormation = _card.TurnsToFormation,
+    //        Description = _card.Description,
+    //        Effects = _card.Effects,
+    //        EnvoyCost = _card.EnvoyCost,
+    //        Id = _card.Id,
+    //        CardType = _card.CardType,
+    //        Name = _card.Name,
+    //    };
+    //}
 }

@@ -1,27 +1,36 @@
-﻿using Cotd_Data._Interfaces;
-using Cotd_Logic._Interfaces;
-using Cotd_Logic.BL.GameLogic.BattleLogics.PlacingSystem;
-using Cotd_Logic.Models.BoardTiles;
+﻿using Cotd_Logic._Interfaces;
+using Cotd_Logic.BL.GameLogic._Behaviours;
 using Cotd_Logic.Models.Cards;
 
 namespace Cotd_Logic.BL.GameLogic.BattleLogics.CardPlaySystem;
 
 public class CardPlayService : ICardPlayService
 {
-    private IDataAccessor<Card> _cardAccessor;
     private readonly IEffectHandler _effectHandler;
-    private readonly IBoardPiecePlacingService _placingService;
 
-    public void PlayCard(Card card, object? target = null)
+	
+
+    public void PlayCard(Card card, IList<ITargetable?> targets)
     {
-        foreach (var effect in card.Effects)
-        {
-            _effectHandler.HandleEffect(effect, target);
-        }
+		if (card == null) throw new ArgumentNullException(nameof(card));
 
-        if (card is UnitCard unitCard)
-        {
-            _placingService.PlaceBoardPiece(unitCard, target as BoardTile);
-        }
-    }
+		// Handle null targets gracefully
+		targets ??= new List<ITargetable?>(new ITargetable?[card.Effects.Count]);
+
+		if (card.Effects.Count != targets.Count)
+		{
+			throw new ArgumentException(
+				$"Mismatch between the number of card effects ({card.Effects.Count}) and provided targets ({targets.Count}).",
+				nameof(targets));
+		}
+
+		for (int i = 0; i < card.Effects.Count; i++)
+		{
+			var effect = card.Effects[i];
+			var target = targets[i];
+
+			// Handle the effect
+			_effectHandler.HandleEffect(effect, target);
+		}
+	}
 }

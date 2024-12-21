@@ -1,12 +1,10 @@
 ﻿using Cotd_Data.Models.Games.Raids;
 using Cotd_Data.ValueObjects;
-using Cotd_Logic.Configs;
 using Cotd_Logic.Models.Captains;
 using Cotd_Logic.Models.Cards;
 using Cotd_Logic.Models.Common;
 using Cotd_Logic.Models.Locations;
 using Cotd_Logic.Models.Maps;
-using Cotd_Logic.Models.Maps.Locations;
 
 namespace Cotd_Logic.Models;
 
@@ -16,12 +14,14 @@ public class Raid : Entity
     {
     }
 
-    public Raid(Captain captain, Map map)
+    public Raid(Captain captain, Map map, IList<Card> unlockedCards)
     {
         Map = map;
-        Loot = RaidConfig.StartingLoot;
+        //Loot = RaidConfig.StartingLoot;
         Captain = captain;
-    }
+		UnlockedCards = new List<Card>(unlockedCards);
+
+	}
 
     public Raid(RaidData data)
     {
@@ -39,11 +39,7 @@ public class Raid : Entity
     public Captain Captain { get; set; } = new Captain();
     public int FireAmount { get; set; }
     public IList<Card> UnlockedCards { get; set; }
-
-    public void RanOutOfDays()
-    {
-
-    }
+    public Battle? OngoingBattle { get; set; }
 
     public RaidData ToData()
     {

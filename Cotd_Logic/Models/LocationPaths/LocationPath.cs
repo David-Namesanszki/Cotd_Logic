@@ -1,7 +1,6 @@
 ﻿using Cotd_Data.Models.Maps.LocationPaths;
 using Cotd_Logic.Models.Common;
 using Cotd_Logic.Models.Locations;
-using Cotd_Logic.Models.Maps.Locations;
 
 namespace Cotd_Logic.Models.LocationPaths;
 

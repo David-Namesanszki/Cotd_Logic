@@ -1,4 +1,5 @@
 ﻿using Cotd_Data.Models.Cards;
+using Cotd_Logic.Models.Buffs;
 using Cotd_Logic.Models.Common;
 using Cotd_Logic.Models.Effects;
 
@@ -46,6 +47,7 @@ public abstract class Card : Entity
 	public string Image { get; set; } = string.Empty;
 	public int EnvoyCost { get; set; } = 0;
 	public IList<Effect> Effects { get; set; } = [];
+	public IList<Buff> Buffs { get; set; } = [];
 
     public abstract CardData ToData();
 

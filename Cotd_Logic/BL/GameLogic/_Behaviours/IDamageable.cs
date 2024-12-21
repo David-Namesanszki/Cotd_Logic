@@ -3,4 +3,5 @@
 public interface IDamageable
 {
     public int HitPoints { get; set; }
+    public void TakeDamage(int amount);
 }

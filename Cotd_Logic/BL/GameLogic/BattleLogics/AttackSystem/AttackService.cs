@@ -1,7 +1,6 @@
 ﻿using Cotd_Logic._Interfaces.AttackSystem;
 using Cotd_Logic._Interfaces.DamageSystem;
 using Cotd_Logic.BL.GameLogic.Behaviours;
-using Cotd_Logic.Models.Boards.BoardTiles;
 
 namespace Cotd_Logic.BL.GameLogic.BattleLogics.AttackSystem;
 
@@ -28,9 +27,9 @@ public class AttackService : IAttackService
 
         if (target != null)
         {
-            _damageTakeService.TakeDamage(target, attackDamage);
+            target.TakeDamage(attackDamage);
 
-            Attacked?.Invoke(target, attackDamage);
+			Attacked?.Invoke(target, attackDamage);
         }
     }
 }

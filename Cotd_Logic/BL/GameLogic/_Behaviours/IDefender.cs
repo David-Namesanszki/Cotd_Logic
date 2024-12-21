@@ -1,7 +1,12 @@
-﻿namespace Cotd_Logic.BL.GameLogic.Behaviours;
+﻿using Cotd_Logic.BL.GameLogic._Behaviours;
 
-public interface IDefender
+namespace Cotd_Logic.BL.GameLogic.Behaviours;
+
+public interface IDefender : ITargetable
 {
-    int ArmorUp { get; set; }
-    int CurrentArmor { get; set; }
+    int DefenseValue { get; set; }
+    int CurrentArmor { get; }
+    bool CanDefend { get; set; }
+    void IncreaseArmor(int amount);
+	void DecreaseArmor(int amount);
 }

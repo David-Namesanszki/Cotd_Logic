@@ -1,6 +1,5 @@
 ﻿using Cotd_Data.ValueObjects;
 using Cotd_Logic.Models;
-using Cotd_Logic.Models.GameInfos;
 
 namespace Cotd_Logic.BL.GameLogic.RaidLogics.LootingSystem;
 

@@ -7,6 +7,6 @@ namespace Cotd_Logic._Interfaces.DefendSystem
     {
         event DefendedEventHandler? Defended;
 
-        void DefendWith(IDefender defender);
+        void ApplyDefense(IDefender defender);
     }
 }

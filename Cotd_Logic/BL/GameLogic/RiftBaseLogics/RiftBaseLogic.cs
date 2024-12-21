@@ -1,5 +1,8 @@
 ﻿using Cotd_Logic._Interfaces;
 using Cotd_Logic.BL.GameLogic.BattleLogics.CardPlaySystem;
+using Cotd_Logic.BL.GameLogic.RaidLogics;
+using Cotd_Logic.BL.GameLogic.RiftBaseLogics.RaidEndingSystem;
+using Cotd_Logic.BL.GameLogic.RiftBaseLogics.RaidStartingSystem;
 using Cotd_Logic.Models;
 using Cotd_Logic.Models.Captains;
 using Cotd_Logic.Models.Cards;
@@ -11,67 +14,48 @@ namespace Cotd_Logic.BL.GameLogic.RiftBaseLogics;
 
 public class RiftBaseLogic
 {
-    private RiftBase _currentRiftBase;
-
     private IDataAccessor<RiftBase> _gameAccessor;
     private IDataStorage<RiftBase> _gameStorage;
     private IDataAccessor<Captain> _captainAccessor;
     private IDataAccessor<Card> _cardAccessor;
     private IDataAccessor<Enemy> _enemyAccessor;
-    private ICardPlayService _cardPlayService;
 
-    ICaptainUnlocker _captainUnlocker;
-    ICardUnlocker _cardUnlocker;
+    private readonly ICaptainUnlocker _captainUnlocker;
+    private readonly ICardUnlocker _cardUnlocker;
+    private readonly IRiftBaseProvider _riftBaseProvider;
 
-    public void LoadGame(string gameId)
+	public void LoadGame(string riftBaseId)
     {
-        _currentRiftBase = _gameAccessor.GetOne(gameId);
-    }
+        RiftBase riftBase = _gameAccessor.GetOne(riftBaseId);
+
+        _riftBaseProvider.SetRiftBase(riftBaseId, riftBase);
+	}
 
     public void NewGame(string name)
     {
-        _currentRiftBase = new RiftBase(name);
-        _gameStorage.Save(_currentRiftBase);
+		RiftBase riftBase = new RiftBase(name);
+        string id = Guid.NewGuid().ToString();
+
+		_riftBaseProvider.SetRiftBase(id, riftBase);
+
+		_gameStorage.Save(riftBase);
     }
 
-    public void SaveGame()
+    public void SaveGame(string riftBaseId)
     {
-        _gameStorage.Update(_currentRiftBase);
+		RiftBase riftBase = _gameAccessor.GetOne(riftBaseId);
+
+		_gameStorage.Update(riftBase);
     }
 
-    public void UnlockCard(CardTypes cardType)
+    public Card UnlockCard(CardTypes cardType)
     {
-        _cardUnlocker.UnlockRandomCard(cardType);
+        return _cardUnlocker.UnlockRandomCard(cardType);
     }
 
-    public void UnlockCaptain()
+    public Captain UnlockCaptain()
     {
-        _captainUnlocker.UnlockRandomCaptain();
+        return _captainUnlocker.UnlockRandomCaptain();
     }
 
-    public void StartRaid(string captainId)
-    {
-        Captain captain = _captainAccessor.GetOne(captainId);
-        Map map = new Map();
-
-        _currentRiftBase.OngoingRaid = new Raid(captain, map);
-    }
-
-    public Location HandleLocation(string locationId)
-    {
-        return _currentRiftBase.OngoingRaid?.Map.GetLocation(locationId)
-            ?? throw new ArgumentNullException("There is no ongoing raid");
-    }
-
-    public void PlayCard(string cardId)
-    {
-        Card card = _cardAccessor.GetOne(cardId);
-
-        _cardPlayService.PlayCard(card);
-    }
-
-    public void EndTurn()
-    {
-
-    }
 }

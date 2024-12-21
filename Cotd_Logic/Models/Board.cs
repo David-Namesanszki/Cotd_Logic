@@ -1,10 +1,7 @@
 ﻿using Cotd_Data.Models.Boards;
-using Cotd_Data.Models.Maps.Locations;
 using Cotd_Logic.Models.BoardPieces;
 using Cotd_Logic.Models.BoardTiles;
 using Cotd_Logic.Models.Captains;
-using Cotd_Logic.Models.Maps.Locations;
-using System.Security.Cryptography;
 
 namespace Cotd_Logic.Models;
 

@@ -4,7 +4,6 @@ using Cotd_Data.Models.Maps.Locations;
 using Cotd_Logic.Models.Common;
 using Cotd_Logic.Models.LocationPaths;
 using Cotd_Logic.Models.Locations;
-using Cotd_Logic.Models.Maps.Locations;
 
 namespace Cotd_Logic.Models.Maps;
 

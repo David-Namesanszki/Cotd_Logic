@@ -1,8 +1,10 @@
 ﻿using Cotd_Data.Models.Maps.Locations;
 using Cotd_Data.ValueObjects;
 using Cotd_Logic.Models.Enemies;
+using Cotd_Logic.Models.Locations;
+using Cotd_Logic.Models.Maps;
 
-namespace Cotd_Logic.Models.Locations;
+namespace Cotd_Logic.Models;
 
 public class Battle : Location
 {
@@ -17,6 +19,7 @@ public class Battle : Location
 
     public Enemy Enemy { get; set; } = new Enemy();
     public Loot Loot { get; set; } = new Loot();
+    public Board Board { get; set; }
 
     public override bool Equals(object? obj)
     {

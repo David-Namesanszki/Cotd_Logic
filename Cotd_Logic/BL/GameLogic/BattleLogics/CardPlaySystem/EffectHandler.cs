@@ -2,9 +2,8 @@
 using Cotd_Logic._Interfaces.DefendSystem;
 using Cotd_Logic._Interfaces.DrawingSystem;
 using Cotd_Logic._Interfaces.HealSystem;
-using Cotd_Logic.BL.BattleLogic.PlacingSystem;
+using Cotd_Logic.BL.GameLogic._Behaviours;
 using Cotd_Logic.BL.GameLogic.Behaviours;
-using Cotd_Logic.Models.Boards.BoardTiles;
 using Cotd_Logic.Models.Effects;
 
 namespace Cotd_Logic.BL.GameLogic.BattleLogics.CardPlaySystem;
@@ -15,7 +14,6 @@ public class EffectHandler : IEffectHandler
     private readonly IDefendService _defendService;
     private readonly IAttackService _attackService;
     private readonly IHealingService _healingService;
-
 
     public EffectHandler(IDrawingService drawService, IDefendService defendService,
                          IAttackService attackService, IHealingService healingService)
@@ -33,7 +31,7 @@ public class EffectHandler : IEffectHandler
     /// <param name="parameter">An integer parameter associated with the effect (e.g., amount of cards to draw).</param>
     /// <param name="target">The target object of the effect (optional for some effects).</param>
     /// <exception cref="ArgumentException">Thrown when the target is not of the expected type.</exception>
-    public void HandleEffect(Effect effect, object? target)
+    public void HandleEffect(Effect effect, ITargetable? target)
     {
         switch (effect.EffectType)
         {
@@ -49,7 +47,7 @@ public class EffectHandler : IEffectHandler
             case EffectTypes.ArmorUp:
                 if (target is not IDefender defender)
                     throw new ArgumentException("Target must implement IDefender for ArmorUp effect.");
-                _defendService.DefendWith(defender);
+                _defendService.ApplyDefense(defender);
                 break;
             case EffectTypes.Heal:
                 if (target is not IHealable healable)

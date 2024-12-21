@@ -6,29 +6,25 @@ namespace Cotd_Logic.BL.GameLogic.RaidLogics.TravelSystem;
 
 public class TravelingService : ITravelingService
 {
-	private Raid _raid;
-
 	private IDayPassService _dayPassService;
 
-	public TravelingService(Raid raid, IDayPassService dayPassService)
+	public TravelingService(IDayPassService dayPassService)
 	{
-		_raid = raid;
 		_dayPassService = dayPassService;
 	}
 
-	public void Travel(LocationPath locationPath)
+	public void Travel(Raid raid, LocationPath locationPath)
 	{
-		_raid.CurrentLocation = locationPath.To;
+		raid.CurrentLocation = locationPath.To;
 		_dayPassService.PassDays(locationPath.DaysToTravel);
 
 		if (_dayPassService.OutOfDays())
 		{
-			_raid.RanOutOfDays();
 		}
 	}
 
-	public bool CanTravel(LocationPath locationPath)
+	public bool CanTravel(Raid raid, LocationPath locationPath)
 	{
-		return _raid.CurrentLocation == locationPath.From;
+		return raid.CurrentLocation == locationPath.From;
 	}
 }

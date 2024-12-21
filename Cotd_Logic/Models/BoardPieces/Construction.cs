@@ -1,48 +1,38 @@
-﻿using Cotd_Logic.Models.Cards;
+﻿using Cotd_Logic.Models.BoardTiles;
+using Cotd_Logic.Models.Buffs;
 
 namespace Cotd_Logic.Models.BoardPieces;
 
 public class Construction : BoardPiece
 {
-    private ConstructionCard _card;
+	public Construction(
+		string name,
+        string image,
+		IList<Buff> buffs,
+		BoardTile boardTile,
+		ConstructionStats stats
+	) : base(name, image, buffs, boardTile)
+	{
+        Stats = stats;
+	}
 
-    public Construction(ConstructionCard card)
-    {
-        _card = card;
-        Power = card.Power;
-        Armor = card.Armor;
-        TurnsToBuild = card.TurnsToBuild;
-        Image = card.Image;
-    }
+    ConstructionStats Stats { get; set; }
+    public bool IsInFormation => Stats.TurnsToFormation <= 0;
 
-    public string Image { get; set; } = string.Empty;
-    public int Power { get; set; }
-    public int Armor { get; set; }
-    public int TurnsToBuild { get; set; }
-    public bool IsBuilt => TurnsToBuild == 0;
-
-    public void OnEndTurn()
-    {
-        if (!IsBuilt)
-        {
-            TurnsToBuild -= 1;
-        }
-    }
-
-    public ConstructionCard ToCard()
-    {
-        return new ConstructionCard()
-        {
-            Image = Image,
-            Power = Power,
-            Armor = Armor,
-            TurnsToBuild = _card.TurnsToBuild,
-            Description = _card.Description,
-            Effects = _card.Effects,
-            EnvoyCost = _card.EnvoyCost,
-            Id = _card.Id,
-            CardType = _card.CardType,
-            Name = _card.Name,
-        };
-    }
+    //public ConstructionCard ToCard()
+    //{
+    //    return new ConstructionCard()
+    //    {
+    //        Image = Image,
+    //        Power = Power,
+    //        Armor = Armor,
+    //        TurnsToBuild = _card.TurnsToBuild,
+    //        Description = _card.Description,
+    //        Effects = _card.Effects,
+    //        EnvoyCost = _card.EnvoyCost,
+    //        Id = _card.Id,
+    //        CardType = _card.CardType,
+    //        Name = _card.Name,
+    //    };
+    //}
 }
