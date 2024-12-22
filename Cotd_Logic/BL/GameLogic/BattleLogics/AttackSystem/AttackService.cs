@@ -1,19 +1,29 @@
 ﻿using Cotd_Logic._Interfaces.AttackSystem;
-using Cotd_Logic._Interfaces.DamageSystem;
-using Cotd_Logic.BL.GameLogic.Behaviours;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Behaviours;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Services;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Validators;
 
 namespace Cotd_Logic.BL.GameLogic.BattleLogics.AttackSystem;
 
-public delegate void AttackedEventHandler(IDamageable target, int attackDamage);
+public class AttackEventArgs
+{
+	public AttackEventArgs(IAttacker attacker)
+	{
+		Attacker = attacker;
+	}
+
+	public IAttacker Attacker { get; set; }
+}
 public class AttackService : IAttackService
 {
     private readonly IAttackTargetFinder _targetFinder;
     private readonly IAttackDamageCalculator _damageCalculator;
-    private readonly IDamageTakeService _damageTakeService;
+    private readonly ITakeDamageService _damageTakeService;
+    private readonly IAttackValidator _attackValidator;
 
-    public event AttackedEventHandler? Attacked;
+    public event EventHandler<AttackEventArgs>? Attacked;
 
-    public AttackService(IAttackTargetFinder targetFinder, IAttackDamageCalculator damageCalculator, IDamageTakeService damageTakeService)
+    public AttackService(IAttackTargetFinder targetFinder, IAttackDamageCalculator damageCalculator, ITakeDamageService damageTakeService)
     {
         _targetFinder = targetFinder;
         _damageCalculator = damageCalculator;
@@ -22,14 +32,22 @@ public class AttackService : IAttackService
 
     public void AttackWith(IAttacker attacker)
     {
-        IDamageable? target = _targetFinder.FindAttackTarget(attacker);
+        if (!_attackValidator.IsValidAttacker(attacker))
+            throw new ArgumentException("Attacker is not valid");
+
+		IDamageable? target = _targetFinder.FindAttackTarget(attacker);
         int attackDamage = _damageCalculator.GetAttackDamage(attacker);
 
         if (target != null)
         {
-            target.TakeDamage(attackDamage);
+			_damageTakeService.TakeDamage(target, attackDamage);
 
-			Attacked?.Invoke(target, attackDamage);
+			OnAttacked(attacker);
         }
+    }
+
+    protected virtual void OnAttacked(IAttacker attacker)
+    {
+        Attacked?.Invoke(this, new AttackEventArgs(attacker));
     }
 }

@@ -1,16 +1,42 @@
-﻿using Cotd_Logic._Interfaces.HealSystem;
-using Cotd_Logic.BL.GameLogic.Behaviours;
+﻿using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Behaviours;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Services;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Validators;
 
 namespace Cotd_Logic.BL.GameLogic.BattleLogics.HealingSystem;
 
-public delegate void HealedEventService(IHealable healable, int amount);
+public class HealedEventArgs : EventArgs
+{
+	public HealedEventArgs(IHealable healable, int amount)
+	{
+		Healable = healable;
+		Amount = amount;
+	}
+
+	public IHealable Healable { get; }
+	public int Amount { get; }
+}
+
 public class HealingService : IHealingService
 {
-    public event HealedEventService? Healed;
-    public void Heal(IHealable healable, int amount)
-    {
-        healable.Health += amount;
+	private readonly IHealingValidator _validator;
 
-        Healed?.Invoke(healable, amount);
-    }
+	public HealingService(IHealingValidator validator)
+	{
+		_validator = validator;
+	}
+
+	public event EventHandler<HealedEventArgs>? Healed;
+	public void Heal(IHealable healable, int amount)
+	{
+		_validator.ValidateHealing(healable, amount);
+
+		healable.Heal(amount);
+
+		OnHealed(healable, amount);
+	}
+
+	protected virtual void OnHealed(IHealable healable, int amount)
+	{
+		Healed?.Invoke(this, new HealedEventArgs(healable, amount));
+	}
 }

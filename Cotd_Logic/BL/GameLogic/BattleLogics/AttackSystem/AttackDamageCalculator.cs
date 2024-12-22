@@ -1,5 +1,5 @@
 ﻿using Cotd_Logic._Interfaces.AttackSystem;
-using Cotd_Logic.BL.GameLogic.Behaviours;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Behaviours;
 using Cotd_Logic.Models.Buffs;
 
 namespace Cotd_Logic.BL.GameLogic.BattleLogics.AttackSystem;

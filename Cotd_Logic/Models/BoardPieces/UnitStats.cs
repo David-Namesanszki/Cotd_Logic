@@ -1,4 +1,4 @@
-﻿using Cotd_Logic.BL.GameLogic.Behaviours;
+﻿using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Behaviours;
 
 namespace Cotd_Logic.Models.BoardPieces;
 

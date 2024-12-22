@@ -1,11 +1,22 @@
-﻿using Cotd_Logic._Interfaces;
-using Cotd_Logic._Interfaces.DrawingSystem;
+﻿using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Behaviours;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Services;
+using Cotd_Logic.BL.GameLogic.BattleLogics.DefendSystem;
 using Cotd_Logic.Models.Cards;
 using Cotd_Logic.Models.Common;
 
 namespace Cotd_Logic.BL.GameLogic.BattleLogics.DrawingSystem;
 
 public delegate void CardDrawnEventHandler(Card card);
+public class HandIsFullEventArgs : EventArgs
+{
+	public HandIsFullEventArgs(IHand hand)
+	{
+		Hand = hand;
+	}
+
+	public IHand Hand { get; }
+}
+
 public class DrawingService : IDrawingService
 {
     Deck _deck;
@@ -13,8 +24,22 @@ public class DrawingService : IDrawingService
     DiscardPile _discardPile;
 
     public event Action? DiscardPileTransferred;
-    public event Action? HandIsFull;
+    public event EventHandler<HandIsFullEventArgs>? HandIsFull;
     public event CardDrawnEventHandler? CardDrawn;
+
+	protected virtual void OnHandIsFull(IHand hand)
+    {
+        HandIsFull?.Invoke(this, new HandIsFullEventArgs(hand));
+    }
+
+    public void DrawSingleCard(IDrawPile drawPile, IHand hand, IDiscardPile)
+    {
+		if (_hand.IsFull)
+		{
+			HandIsFull?.Invoke();
+			return;
+		}
+	}
 
     public void DrawMultipleCards(int amount)
     {

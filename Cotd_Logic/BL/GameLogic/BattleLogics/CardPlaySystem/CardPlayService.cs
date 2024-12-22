@@ -1,5 +1,5 @@
 ﻿using Cotd_Logic._Interfaces;
-using Cotd_Logic.BL.GameLogic._Behaviours;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Behaviours;
 using Cotd_Logic.Models.Cards;
 
 namespace Cotd_Logic.BL.GameLogic.BattleLogics.CardPlaySystem;
@@ -7,8 +7,6 @@ namespace Cotd_Logic.BL.GameLogic.BattleLogics.CardPlaySystem;
 public class CardPlayService : ICardPlayService
 {
     private readonly IEffectHandler _effectHandler;
-
-	
 
     public void PlayCard(Card card, IList<ITargetable?> targets)
     {

@@ -1,29 +1,29 @@
-﻿using Cotd_Logic.BL.GameLogic._Behaviours;
-using Cotd_Logic.Models.BoardTiles;
-using Cotd_Logic.Models.Buffs;
-using Cotd_Logic.Models.Common;
+﻿using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Behaviours;
 
 namespace Cotd_Logic.Models.BoardPieces;
 
-public delegate void BoardPieceDestroyedEventHandler(string boardTile);
 public abstract class BoardPiece : ITargetable
 {
 	protected BoardPiece(string name, string image)
 	{
-		Image = image;
-		Name = name;
+		Id = Guid.NewGuid().ToString();
+		Image = image ?? throw new ArgumentNullException(nameof(image));
+		Name = name ?? throw new ArgumentNullException(nameof(name));
 	}
 
-	public event BoardPieceDestroyedEventHandler? Destroyed;
+	public event EventHandler<BoardPieceDestroyedEventArgs>? Destroyed;
+	
 
-    public string Id { get; set; }
+	public string Id { get; set; }
     public string Image { get; set; }
 	public string Name { get; set; }
 
-	protected void OnDestroyed()
+	protected virtual void OnDestroyed(string boardTile)
 	{
-		Destroyed?.Invoke(Id);
+		Destroyed?.Invoke(this, new BoardPieceEventArgs(boardTile, Id));
 	}
+
+	
 
 	public override bool Equals(object? obj)
 	{

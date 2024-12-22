@@ -1,4 +1,4 @@
-﻿using Cotd_Logic.BL.GameLogic._Behaviours;
+﻿using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Behaviours;
 using Cotd_Logic.Models.Cards;
 
 namespace Cotd_Logic._Interfaces

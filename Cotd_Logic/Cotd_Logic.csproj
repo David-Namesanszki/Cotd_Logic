@@ -10,4 +10,9 @@
     <ProjectReference Include="..\..\Data\Cotd_Data\Cotd_Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="_Interfaces\DamageSystem\" />
+    <Folder Include="_Interfaces\DrawingSystem\" />
+  </ItemGroup>
+
 </Project>

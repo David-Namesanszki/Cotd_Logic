@@ -1,4 +1,4 @@
-﻿using Cotd_Logic.BL.GameLogic.Behaviours;
+﻿using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Behaviours;
 using Cotd_Logic.Models.BoardTiles;
 using Cotd_Logic.Models.Buffs;
 using Cotd_Logic.Models.Cards;
@@ -17,7 +17,14 @@ public class Unit : BoardPiece, IAttacker
 	{
 	}
 
-    public bool IsInFormation => Stats.TurnsToFormation <= 0;
+	public int Health { get; set; }
+	public int Power { get; set; }
+	public int Armor { get; set; }
+	public int TurnsToFormation { get; set; }
+	public DamageTypes DamageType { get; set; }
+
+
+	public bool IsInFormation => Stats.TurnsToFormation <= 0;
     public bool HasAttacked { get; set; } = false;
     public UnitStats Stats { get; set; }
 

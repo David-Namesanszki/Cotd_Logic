@@ -2,8 +2,7 @@
 using Cotd_Logic._Interfaces.AttackSystem;
 using Cotd_Logic._Interfaces.DefendSystem;
 using Cotd_Logic._Interfaces.HealingSystem;
-using Cotd_Logic.BL.GameLogic._Behaviours;
-using Cotd_Logic.BL.GameLogic.Behaviours;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Behaviours;
 using Cotd_Logic.BL.GameLogic.RaidLogics;
 using Cotd_Logic.Models;
 using Cotd_Logic.Models.Cards;

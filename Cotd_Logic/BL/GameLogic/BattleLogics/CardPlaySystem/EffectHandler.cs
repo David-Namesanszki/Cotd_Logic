@@ -1,9 +1,5 @@
-﻿using Cotd_Logic._Interfaces.AttackSystem;
-using Cotd_Logic._Interfaces.DefendSystem;
-using Cotd_Logic._Interfaces.DrawingSystem;
-using Cotd_Logic._Interfaces.HealSystem;
-using Cotd_Logic.BL.GameLogic._Behaviours;
-using Cotd_Logic.BL.GameLogic.Behaviours;
+﻿using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Behaviours;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Services;
 using Cotd_Logic.Models.Effects;
 
 namespace Cotd_Logic.BL.GameLogic.BattleLogics.CardPlaySystem;

@@ -1,5 +1,5 @@
 ﻿using Cotd_Data.ValueObjects;
-using Cotd_Logic.BL.GameLogic._Behaviours;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Behaviours;
 using Cotd_Logic.Models.BoardPieces;
 
 namespace Cotd_Logic.Models.BoardTiles;
@@ -40,7 +40,7 @@ public class BoardTile : BoardObject, ITargetable
 		TeamSide = teamSide;
 		BoardTileType = boardTileType;
 	}
-
+    public string Id { get; set; }
     public int Row => Coords.Q;
     public CubeCoord Coords { get; set; }
     public BoardTileOrientation Orientation { get; set; } = BoardTileOrientation.Undefined;

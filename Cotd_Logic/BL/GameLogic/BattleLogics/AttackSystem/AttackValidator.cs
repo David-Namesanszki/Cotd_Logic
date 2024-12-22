@@ -1,13 +1,13 @@
-﻿using Cotd_Logic._Interfaces.AttackSystem;
-using Cotd_Logic.BL.GameLogic.Behaviours;
+﻿using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Behaviours;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Validators;
 using Cotd_Logic.Models.BoardPieces;
 
 namespace Cotd_Logic.BL.GameLogic.BattleLogics.AttackSystem;
 
 public class AttackValidator : IAttackValidator
 {
-	public bool IsValidAttacker(BoardPiece boardPiece)
+	public bool IsValidAttacker(IAttacker attacker)
 	{
-		return boardPiece is IAttacker attacker && attacker.CanAttack;
+		return attacker.CanAttack;
 	}
 }

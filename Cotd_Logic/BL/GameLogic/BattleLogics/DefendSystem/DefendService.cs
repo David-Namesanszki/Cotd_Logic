@@ -1,9 +1,10 @@
-﻿using Cotd_Logic._Interfaces.DefendSystem;
-using Cotd_Logic.BL.GameLogic.Behaviours;
+﻿using Cotd_Logic.BL.Common;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Behaviours;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Services;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Validators;
+using Cotd_Logic.BL.GameLogic.BattleLogics.DamageSystem;
 
 namespace Cotd_Logic.BL.GameLogic.BattleLogics.DefendSystem;
-
-public delegate void DefendedEventHandler(object sender, DefendedEventArgs e);
 
 public class DefendedEventArgs : EventArgs
 {
@@ -17,21 +18,27 @@ public class DefendedEventArgs : EventArgs
 
 public class DefendService : IDefendService
 {
-    public event DefendedEventHandler? Defended;
+	private readonly IDefendValidator _validator;
+
+	public DefendService(IDefendValidator validator)
+	{
+		_validator = validator;
+	}
+
+	public event EventHandler<DefendedEventArgs>? Defended;
+
 	public void ApplyDefense(IDefender defender)
 	{
 		if (!defender.CanDefend)
-		{
-			throw new InvalidOperationException("The defender cannot defend.");
-		}
+			throw new ArgumentException("");
 
-		defender.IncreaseArmor(defender.DefenseValue);
+		defender.Defend();
 
-		OnDefended(new DefendedEventArgs(defender));
+		OnDefended(defender);
 	}
 
-	protected virtual void OnDefended(DefendedEventArgs e)
+	protected virtual void OnDefended(IDefender defender)
 	{
-		Defended?.Invoke(this, e);
+		Defended?.Invoke(this, new DefendedEventArgs(defender));
 	}
 }

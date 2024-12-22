@@ -1,7 +1,8 @@
 ﻿using Cotd_Data.ValueObjects;
 using Cotd_Logic._Interfaces;
-using Cotd_Logic._Interfaces.AttackSystem;
-using Cotd_Logic.BL.GameLogic.Behaviours;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Behaviours;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Services;
+using Cotd_Logic.BL.GameLogic.BattleLogics._Interfaces.Validators;
 using Cotd_Logic.BL.GameLogic.RiftBaseLogics.ContainerSystem;
 using Cotd_Logic.Models;
 using Cotd_Logic.Models.BoardPieces;
